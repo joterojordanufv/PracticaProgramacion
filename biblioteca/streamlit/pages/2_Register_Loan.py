@@ -1,33 +1,50 @@
 import streamlit as st
 import requests
 
-st.set_page_config(page_title="Préstamo de Libros", page_icon="✍️")
-
-st.markdown("# Gestionar Préstamo")
-st.write("Formulario para realizar un préstamo.")
-
 API_URL = "http://fastapi:8000"
 
-with st.form("loan_form"):
-    libro_id = st.number_input("ID del Libro", min_value=1, step=1)
-    usuario_id = st.text_input("ID de Usuario")
-    submitted = st.form_submit_button("Realizar Préstamo")
+st.title("Registrar Préstamo 📖")
 
-    if submitted:
-        # STUDENT TASK: Implement the actual POST request logic properly
-        st.info(f"Intentando prestar libro {libro_id} al usuario {usuario_id}...")
-        
-        try:
-            # INEFFICIENCY: Not checking if payload structure matches what server expects
-            response = requests.post(f"{API_URL}/prestamos/?libro_id={libro_id}")
-            
+books_response = requests.get(f"{API_URL}/books/")
+users_response = requests.get(f"{API_URL}/users/")
+
+books = books_response.json() if books_response.status_code == 200 else []
+users = users_response.json() if users_response.status_code == 200 else []
+
+libros_disponibles = [b for b in books if b["disponible"]]
+
+if len(users) == 0:
+    st.info("No hay usuarios registrados. Debes crear uno antes de hacer un préstamo.")
+elif len(libros_disponibles) == 0:
+    st.info("No hay libros disponibles para préstamo.")
+else:
+    with st.form("form_prestamo"):
+        user_id = st.selectbox(
+            "Usuario",
+            options=[u["id"] for u in users],
+            format_func=lambda x: next(u["nombre"] for u in users if u["id"] == x)
+        )
+
+        book_id = st.selectbox(
+            "Libro disponible",
+            options=[b["id"] for b in libros_disponibles],
+            format_func=lambda x: next(b["titulo"] for b in libros_disponibles if b["id"] == x)
+        )
+
+        submitted = st.form_submit_button("Realizar préstamo")
+
+        if submitted:
+            payload = {
+                "user_id": user_id,
+                "book_id": book_id
+            }
+
+            response = requests.post(f"{API_URL}/loans/", json=payload)
+
             if response.status_code == 200:
-                st.success("Préstamo registrado (simulado).")
-                st.json(response.json())
+                st.success("Préstamo realizado correctamente ✅")
             else:
-                st.error("Error al registrar préstamo.")
-        except Exception as e:
-            st.error(f"Error de conexión: {e}")
-
-st.markdown("---")
-st.warning("⚠️ Este formulario es un esqueleto. Falta validación y gestión de errores real.")
+                try:
+                    st.error(response.json()["detail"])
+                except Exception:
+                    st.error("Error al registrar el préstamo")
