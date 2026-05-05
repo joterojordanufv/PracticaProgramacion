@@ -153,3 +153,75 @@ Completar la lógica principal del sistema de biblioteca e implementar las funci
 
 
 
+
+
+## 📅 Daily 3
+
+### 🎯 Objetivo del día
+Añadir testing automatizado, configurar integración continua y cerrar los requisitos de la metodología XP.
+
+---
+
+### 🧱 Trabajo realizado
+
+#### 🔹 Testing con pytest
+- Creación de carpeta de tests (`tests/`)
+- Implementación de tests básicos:
+  - Creación de libro
+  - Creación de usuario
+  - Validación de usuario duplicado
+  - Creación de préstamo
+- Uso de `TestClient` de FastAPI para pruebas de endpoints
+- Solución de errores:
+  - Problema de importación (`ModuleNotFoundError`)
+  - Ajuste de PYTHONPATH mediante `conftest.py`
+  - Corrección de duplicados usando emails únicos dinámicos
+
+---
+
+#### 🔹 Integración Continua (CI)
+- Configuración de GitHub Actions
+- Creación de workflow en `.github/workflows/ci.yml`
+- Automatización de ejecución de tests en cada push
+- Verificación del correcto funcionamiento desde la pestaña *Actions*
+
+---
+
+#### 🔹 Metodología XP
+- Simulación de Pair Programming mediante commits con `Co-authored-by`
+- Aplicación de refactoring continuo en funcionalidades previas
+- Uso de desarrollo incremental (por historias de usuario)
+- Integración continua mediante GitHub Actions
+
+
+---
+
+### ⚠️ Problemas encontrados
+- Fallo en imports al ejecutar pytest dentro de Docker
+- Conflictos con datos duplicados en base de datos
+- Error al hacer push por divergencia con repositorio remoto
+
+---
+
+### 🔧 Soluciones aplicadas
+- Uso de `conftest.py` para ajustar rutas de importación
+- Generación de datos dinámicos en tests (`uuid`)
+- Uso de `git pull --rebase` para sincronizar cambios
+- Corrección del flujo de commits y pushes
+
+---
+
+### 📌 Estado del proyecto
+- Sistema completo de gestión de biblioteca funcional
+- Testing automatizado implementado
+- CI activo en GitHub
+- Metodología XP aplicada en el desarrollo
+
+---
+
+### 🔜 Próximos pasos
+- HU-06: Historial de préstamos (objetivo notable)
+- HU-08: Visualización avanzada (objetivo sobresaliente)
+
+
+
