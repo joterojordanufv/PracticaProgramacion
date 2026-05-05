@@ -1,0 +1,18 @@
+services:
+  fastapi:
+    build: ./biblioteca/fastapi
+    container_name: fastapi
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./biblioteca/fastapi:/code
+
+  streamlit:
+    build: ./biblioteca/streamlit
+    container_name: streamlit
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./biblioteca/streamlit:/app
+    depends_on:
+      - fastapi

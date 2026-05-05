@@ -1,15 +1,10 @@
-FROM tiangolo/uvicorn-gunicorn
+FROM python:3.11-slim
 
-RUN mkdir /fastapi
+WORKDIR /code
 
-COPY requirements.txt /fastapi
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-WORKDIR /fastapi
+COPY . .
 
-RUN pip install -r requirements.txt
-
-COPY . /fastapi
-
-EXPOSE 8000
-
-CMD ["uvicorn", "server:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
