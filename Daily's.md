@@ -225,3 +225,73 @@ Añadir testing automatizado, configurar integración continua y cerrar los requ
 
 
 
+## 📅 Daily 4
+
+### 🎯 Objetivo del día
+Completar la HU-06 (historial de préstamos) y desarrollar la HU-08 (visualización avanzada del sistema), asegurando el correcto funcionamiento y resolviendo incidencias técnicas.
+
+---
+
+### 🧱 Trabajo realizado
+
+#### 🔹 HU-06: Historial de préstamos
+- Desarrollo de la página `Loan History` en Streamlit
+- Integración con el endpoint `/loans/user/{user_id}`
+- Implementación de:
+  - Selector de usuario dinámico
+  - Visualización de préstamos asociados
+- Mejora de la interfaz:
+  - Transformación de datos en tabla mediante pandas
+  - Formateo de fechas para mayor legibilidad
+  - Representación visual del estado del préstamo (activo/devuelto)
+
+---
+
+#### 🔹 HU-08: Visualización avanzada
+- Desarrollo de la página `Loan Calendar`
+- Implementación de:
+  - Agrupación de préstamos por fecha
+  - Cálculo de métricas mediante `groupby`
+  - Visualización gráfica (barras) de préstamos activos y devueltos
+  - Tabla detallada de eventos
+- Mejora de la experiencia de usuario:
+  - Separación clara entre resumen, gráfico y detalle
+
+---
+
+### 🐞 Problemas encontrados
+
+- Errores de indentación en Python que impedían la ejecución del script
+- Inconsistencias en la estructura de datos al trabajar con pandas
+- Conflictos en la transformación de columnas al renombrar atributos
+- Problemas de ejecución en contenedores Docker ya activos
+- Dificultades en la sincronización del entorno entre distintos miembros del equipo
+
+---
+
+### 🔧 Soluciones aplicadas
+
+- Reestructuración del código respetando correctamente la indentación de bloques
+- Ajuste del tratamiento de DataFrames para evitar conflictos entre columnas
+- Separación clara de las transformaciones de datos para evitar ambigüedades
+- Uso adecuado de comandos Docker (`down`, `restart`) según el contexto
+- Mejora del flujo de trabajo colaborativo mediante `git pull` y `git push`
+
+---
+
+### 📌 Estado del proyecto
+
+- HU-06 completada y funcional
+- HU-08 completada con visualización avanzada
+- Sistema completamente operativo
+- Arquitectura estable y bien integrada
+- Metodología XP aplicada correctamente
+
+---
+
+### 🔜 Próximos pasos
+
+- Revisión final del sistema
+- Validación completa de funcionalidades
+- Preparación de la defensa del proyecto
+- HU-09 y HU-10
