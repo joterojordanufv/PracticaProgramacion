@@ -1,5 +1,3 @@
-from app.logger import logger
-
 from app.repositories.book_repository import BookRepository
 from app.logger import logger
 
@@ -18,7 +16,9 @@ class BookService:
             raise ValueError("Todos los campos son obligatorios.")
 
         book = self.repo.create(db, data.titulo, data.autor, data.genero)
+
         logger.info(f"Libro creado correctamente: {book.titulo}")
+
         return book
 
     def search_books(self, db, q):
