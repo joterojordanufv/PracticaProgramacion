@@ -74,3 +74,28 @@ def test_create_loan():
     })
 
     assert loan_response.status_code == 200
+
+from unittest.mock import MagicMock
+from app.services.book_service import BookService
+
+
+def test_get_all_books_with_mock():
+    service = BookService()
+
+    mock_repo = MagicMock()
+
+    mock_repo.get_all.return_value = [
+        MagicMock(
+            id=1,
+            titulo="Mock Book",
+            autor="Mock Author",
+            genero="Test",
+            disponible=True
+        )
+    ]
+
+    service.repo = mock_repo
+
+    result = service.get_all_books(None)
+
+    assert result[0]["titulo"] == "Mock Book"
