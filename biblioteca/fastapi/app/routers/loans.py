@@ -1,30 +1,44 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
+
 from app.database import get_db
 from app.schemas.loan import LoanCreate, LoanResponse
 from app.services.loan_service import LoanService
+from app.exceptions.custom_exceptions import (
+    BookNotFoundError,
+    BookNotAvailableError,
+    UserNotFoundError,
+    LoanNotFoundError,
+    LoanAlreadyReturnedError,
+)
 
 router = APIRouter(prefix="/loans", tags=["loans"])
 service = LoanService()
+
 
 @router.post("/", response_model=LoanResponse)
 def create_loan(data: LoanCreate, db: Session = Depends(get_db)):
     try:
         return service.create_loan(db, data)
-    except ValueError as e:
+
+    except (BookNotFoundError, BookNotAvailableError, UserNotFoundError) as e:
         raise HTTPException(status_code=400, detail=str(e))
+
 
 @router.patch("/{loan_id}/return", response_model=LoanResponse)
 def return_loan(loan_id: int, db: Session = Depends(get_db)):
     try:
         return service.return_loan(db, loan_id)
-    except ValueError as e:
+
+    except (LoanNotFoundError, LoanAlreadyReturnedError) as e:
         raise HTTPException(status_code=400, detail=str(e))
+
 
 @router.get("/user/{user_id}")
 def user_history(user_id: int, db: Session = Depends(get_db)):
     try:
         loans = service.get_user_history(db, user_id)
+
         return [
             {
                 "id": loan.id,
@@ -37,5 +51,6 @@ def user_history(user_id: int, db: Session = Depends(get_db)):
             }
             for loan in loans
         ]
-    except ValueError as e:
+
+    except UserNotFoundError as e:
         raise HTTPException(status_code=400, detail=str(e))
