@@ -23,22 +23,111 @@ Desarrollar un sistema completo para gestionar el catálogo y préstamos de una 
 
 ## Principios SOLID (Obligatorio)
 
-Debéis aplicar y documentar en este README cómo habéis cumplido con:
-*   **SRP** (Single Responsibility Principle)
-*   **OCP** (Open/Closed Principle)
-*   **LSP** (Liskov Substitution Principle)
-*   **ISP** (Interface Segregation Principle)
-*   **DIP** (Dependency Inversion Principle)
+---
 
-##  Metodología: eXtreme Programming (XP)
+## Principios SOLID aplicados
 
-Durante los 3 sprints de la práctica, es OBLIGATORIO:
-*   **Pair Programming**: Evidenciado en los commits (`co-authored-by`).
-*   **TDD (Test-Driven Development)**: Escribir tests *antes* que el código.
-*   **Refactoring Continuo**: Mejorar el código sin cambiar su comportamiento externo.
-*   **Integración Continua**: GitHub Actions activo.
-*   **Stand-ups Diarios**: Registro en `DAILYS.md` (fecha, asistentes, qué hice, qué haré, bloqueos).
+Durante la refactorización del proyecto se aplicaron los principios SOLID para mejorar la organización, mantenibilidad y escalabilidad del sistema.
 
+### SRP — Single Responsibility Principle
+
+Cada módulo del sistema tiene una única responsabilidad:
+
+- Los routers de FastAPI se encargan únicamente de exponer los endpoints.
+- Los services contienen la lógica de negocio.
+- Los repositories gestionan el acceso a la base de datos.
+- Los models representan las entidades persistentes mediante SQLAlchemy.
+- Streamlit se limita a la interfaz gráfica y consume la API mediante peticiones HTTP.
+
+Ejemplo: `BookService` contiene la lógica relacionada con libros, mientras que `BookRepository` se encarga exclusivamente del acceso a datos.
+
+### OCP — Open/Closed Principle
+
+El sistema está abierto a extensión pero cerrado a modificación.
+
+La arquitectura permite añadir nuevas funcionalidades creando nuevos servicios, routers o repositorios sin modificar la lógica existente.
+
+Ejemplo: se añadió el historial de préstamos y la visualización avanzada sin alterar el funcionamiento base de libros, usuarios y préstamos.
+
+### LSP — Liskov Substitution Principle
+
+Las clases y componentes del sistema mantienen comportamientos consistentes y predecibles.
+
+Los servicios utilizan repositorios con métodos bien definidos, por lo que podrían sustituirse por otras implementaciones de persistencia sin afectar a la lógica de negocio principal.
+
+Ejemplo: `BookRepository` podría ser reemplazado por otro repositorio que use PostgreSQL sin modificar el uso que hace `BookService`.
+
+### ISP — Interface Segregation Principle
+
+El sistema evita módulos excesivamente grandes o con responsabilidades mezcladas.
+
+Cada repositorio y servicio expone únicamente las operaciones necesarias para su dominio:
+
+- `BookRepository` gestiona libros.
+- `UserRepository` gestiona usuarios.
+- `LoanRepository` gestiona préstamos.
+
+Esto evita que una parte del sistema dependa de métodos que no necesita.
+
+### DIP — Dependency Inversion Principle
+
+La lógica de negocio no depende directamente de la interfaz gráfica ni de detalles concretos de presentación.
+
+Streamlit se comunica con FastAPI mediante HTTP, y los servicios trabajan a través de repositorios, separando las capas del sistema.
+
+Esto permite modificar la interfaz o la persistencia sin afectar directamente a la lógica de negocio.
+
+---
+
+## Técnicas avanzadas implementadas
+
+Además de la funcionalidad básica, se añadieron técnicas avanzadas para cumplir con los requisitos de calidad del proyecto:
+
+### Logging
+
+Se implementó un sistema de logging centralizado con distintos niveles:
+
+- `INFO`: acciones correctas del sistema.
+- `WARNING`: operaciones no válidas o intentos incorrectos.
+- `ERROR`: reservado para errores inesperados.
+
+### Excepciones personalizadas
+
+Se crearon excepciones específicas para errores de dominio:
+
+- `DuplicateEmailError`
+- `BookNotFoundError`
+- `BookNotAvailableError`
+- `UserNotFoundError`
+- `LoanNotFoundError`
+- `LoanAlreadyReturnedError`
+
+Esto permite gestionar errores de forma más clara y mantenible.
+
+### Decoradores
+
+Se implementó un decorador propio para registrar acciones importantes del sistema, como la creación de libros.
+
+### Properties
+
+Se utilizaron propiedades con `@property` en el modelo `Loan` para encapsular el estado del préstamo y exponerlo de forma legible.
+
+### Generadores
+
+Se implementó un generador con `yield` para procesar libros de forma eficiente y demostrar el uso de programación avanzada en Python.
+
+---
+
+## Metodología XP
+
+El desarrollo siguió una metodología incremental basada en eXtreme Programming:
+
+- Se realizaron commits frecuentes y semánticos.
+- Se trabajó con pair programming reflejado mediante `Co-authored-by`.
+- Se mantuvo un registro diario en `DAILYS.md`.
+- Se aplicó refactoring continuo.
+- Se añadieron tests con Pytest.
+- Se configuró integración continua mediante GitHub Actions
 ---
 
 ##  Sistema de Evaluación Incremental
