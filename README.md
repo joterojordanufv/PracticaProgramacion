@@ -166,6 +166,32 @@ El peso de la práctica es del **35%** de la nota final. La evaluación es incre
 
 ---
 
+## Tecnologías y técnicas avanzadas utilizadas
+
+Además de los requisitos básicos de la práctica, el proyecto incorpora herramientas y técnicas propias de un entorno de desarrollo profesional:
+
+- Docker y Docker Compose para contenerizar frontend y backend.
+- FastAPI para construir una API REST modular.
+- Streamlit para crear una interfaz gráfica funcional.
+- SQLAlchemy ORM para persistencia de datos con SQLite.
+- Tests unitarios con Pytest.
+- Tests con mocks mediante `MagicMock` para aislar dependencias.
+- Tests de integración con `TestClient` de FastAPI.
+- Coverage con `pytest-cov`, alcanzando más del 80% de cobertura.
+- GitHub Actions para integración continua.
+- Logging centralizado con niveles `INFO`, `WARNING` y `ERROR`.
+- Excepciones personalizadas para errores de dominio.
+- Decorador propio para registrar acciones importantes.
+- Uso de `@property` para encapsular el estado de préstamos.
+- Uso de generadores con `yield`.
+- Uso de context manager propio para gestión eficiente de recursos.
+- Cacheado en Streamlit mediante `@st.cache_data`.
+
+Estas decisiones acercan el proyecto a una arquitectura real de desarrollo backend/frontend y mejoran la mantenibilidad, escalabilidad y calidad del sistema.
+
+
+---
+
 ## Arquitectura del Proyecto (Estado Inicial)
 
 El esqueleto actual es intencionadamente ineficiente.
@@ -180,3 +206,4 @@ El esqueleto actual es intencionadamente ineficiente.
 3.  **Dockerizar**: Mantener/Mejorar el `docker-compose.yml` para que todo arranque con un comando.
 
 ¡Mucho ánimo y a programar! 💻🔥
+
