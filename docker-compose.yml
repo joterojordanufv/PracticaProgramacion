@@ -1,4 +1,21 @@
 services:
+  postgres:
+    image: postgres:16
+    container_name: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: biblioteca
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d biblioteca"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
   fastapi:
     build: ./biblioteca/fastapi
     container_name: fastapi
@@ -6,6 +23,11 @@ services:
       - "8000:8000"
     volumes:
       - ./biblioteca/fastapi:/code
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/biblioteca
+    depends_on:
+      postgres:
+        condition: service_healthy
 
   streamlit:
     build: ./biblioteca/streamlit
@@ -16,3 +38,6 @@ services:
       - ./biblioteca/streamlit:/app
     depends_on:
       - fastapi
+
+volumes:
+  postgres_data:
