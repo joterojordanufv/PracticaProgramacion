@@ -1,6 +1,7 @@
 from app.repositories.book_repository import BookRepository
 from app.logger import logger
 from app.decorators import log_action
+from app.utils import generate_books
 
 
 class BookService:
@@ -9,7 +10,10 @@ class BookService:
 
     def get_all_books(self, db):
         logger.info("Consultando catálogo completo de libros")
-        return self.repo.get_all(db)
+
+        books = self.repo.get_all(db)
+
+        return list(generate_books(books))
 
     @log_action("crear libro")
     def create_book(self, db, data):
@@ -18,7 +22,9 @@ class BookService:
             raise ValueError("Todos los campos son obligatorios.")
 
         book = self.repo.create(db, data.titulo, data.autor, data.genero)
+
         logger.info(f"Libro creado correctamente: {book.titulo}")
+
         return book
 
     def search_books(self, db, q):
