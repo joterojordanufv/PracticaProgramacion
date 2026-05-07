@@ -345,3 +345,41 @@ Completar la HU-06 (historial de préstamos) y desarrollar la HU-08 (visualizaci
 - Reiniciamos y reconstruimos contenedores Docker para validar correctamente cada cambio.
 - Verificamos logs y endpoints desde FastAPI `/docs` para comprobar el comportamiento esperado del sistema.
 
+
+
+
+## 📅 Daily 5.2
+
+## Fecha
+07/05/2026
+
+## Asistentes
+- Pepe Otero
+- Jaime Carrasco
+- Jaime Escriva
+- Hugo Dominguez
+- César González
+
+---
+
+## Qué hicimos
+- Añadimos PostgreSQL como tercer contenedor Docker.
+- Ejecutamos tests de integración y comprobamos el coverage.
+- Mejoramos y rediseñamos la interfaz principal de Streamlit.
+- Creamos nuevas branches para desarrollar mejoras visuales y cambios avanzados sin dañar la versión estable del proyecto.
+
+---
+
+## Reflexión
+Nos dimos cuenta bastante tarde del potencial que tenía mejorar el frontend del proyecto. Durante casi todo el desarrollo nos centramos principalmente en la funcionalidad, arquitectura, testing y backend, dejando el diseño visual como algo secundario o extra.
+
+Al empezar a rediseñar la interfaz vimos que realmente era bastante sencillo mejorar muchísimo el aspecto visual utilizando HTML, CSS y herramientas de IA, algo que además solemos hacer habitualmente para crear dashboards y páginas visuales más modernas.
+
+También decidimos crear nuevas branches para probar cambios importantes sin afectar al trabajo estable que ya teníamos realizado, algo que nos permitió experimentar con más seguridad y trabajar de una forma más profesional.
+
+Consideramos que fue un error por nuestra parte no dedicar más tiempo antes al frontend, ya que con relativamente pocos cambios el proyecto pasó de tener una interfaz muy básica a verse mucho más profesional y completo.
+
+---
+
+## Qué haremos después
+- Finalizar y preparar la defensa del proyecto.
