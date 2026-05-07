@@ -3,6 +3,7 @@ from sqlalchemy.orm import relationship
 from datetime import datetime
 from app.database import Base
 
+
 class Loan(Base):
     __tablename__ = "loans"
 
@@ -18,3 +19,7 @@ class Loan(Base):
     @property
     def activo(self):
         return self.fecha_devolucion is None
+
+    @property
+    def estado(self):
+        return "Activo" if self.activo else "Devuelto"

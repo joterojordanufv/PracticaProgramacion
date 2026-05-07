@@ -47,7 +47,8 @@ def user_history(user_id: int, db: Session = Depends(get_db)):
                 "titulo": loan.book.titulo,
                 "fecha_prestamo": loan.fecha_prestamo,
                 "fecha_devolucion": loan.fecha_devolucion,
-                "activo": loan.fecha_devolucion is None
+                "activo": loan.activo,
+                "estado": loan.estado
             }
             for loan in loans
         ]
