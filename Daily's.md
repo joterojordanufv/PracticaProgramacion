@@ -295,3 +295,53 @@ Completar la HU-06 (historial de préstamos) y desarrollar la HU-08 (visualizaci
 - Validación completa de funcionalidades
 - Preparación de la defensa del proyecto
 - HU-09 y HU-10
+
+
+
+## 📅 Daily 5
+
+## Asistentes
+- Pepe Otero
+- Jaime Carrasco
+- Jaime Escriva
+- Hugo Dominguez
+- César González
+
+---
+
+## Qué hemos hecho hoy
+
+- Continuamos el desarrollo de las HU-09 y HU-10 del proyecto Gestor de Bibliotecas.
+- Implementamos un sistema de logging centralizado utilizando distintos niveles (`INFO` y `WARNING`).
+- Añadimos excepciones personalizadas para controlar errores relacionados con usuarios, libros y préstamos.
+- Refactorizamos los servicios y routers para mejorar la robustez del backend.
+- Probamos manualmente distintos casos desde Streamlit y FastAPI `/docs`:
+  - préstamos duplicados,
+  - devoluciones repetidas,
+  - emails duplicados,
+  - validaciones de formularios.
+- Implementamos un decorador propio para registrar acciones importantes del sistema.
+- Añadimos propiedades con `@property` en el modelo `Loan` para encapsular el estado de los préstamos.
+- Implementamos un generador con `yield` para procesar libros de forma eficiente.
+- Documentamos en el README la aplicación de los principios SOLID y las técnicas avanzadas utilizadas.
+- Ejecutamos tests automáticos con Pytest y configuramos `pytest-cov` para medir cobertura.
+- Alcanzamos un 80% de cobertura total del proyecto.
+
+---
+
+## Problemas encontrados
+
+- Durante la integración de logging y excepciones aparecieron errores internos en varios servicios del backend.
+- Se detectaron conflictos entre cambios en servicios y routers, lo que provocó fallos en préstamos y usuarios.
+- Fue necesario restaurar el repositorio al último commit estable mediante `git reset --hard` para recuperar un estado funcional antes de continuar con la refactorización.
+- También aparecieron problemas de sincronización y reinicio de contenedores Docker durante algunas pruebas.
+
+---
+
+## Cómo los resolvimos
+
+- Se rehizo la implementación de HU-09 de forma incremental y por bloques pequeños.
+- Probamos cada modificación individualmente antes de continuar con la siguiente.
+- Reiniciamos y reconstruimos contenedores Docker para validar correctamente cada cambio.
+- Verificamos logs y endpoints desde FastAPI `/docs` para comprobar el comportamiento esperado del sistema.
+
